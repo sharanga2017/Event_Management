@@ -2,37 +2,44 @@ package com.springboot.management_event.model.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "attendees")
 public class Attendee extends AbstractEntity {
 
-
-
-
-
     private String firstName;
-
-
     private String lastName;
-
     private LocalDate birthDate;
-
     private String email;
-
     private String companyName;
-
+    @OneToOne
+    @JoinColumn(name="account_id")
+    private Account account;
     @OneToOne
     private Address address;
-
-    @ManyToMany
-    private List<Event> events;
-
+    @ManyToMany(mappedBy = "attendees")
+    private Set<Event> events = new HashSet<>();
     public Attendee() {
     }
 
+    public Account getAccount() {
+        return account;
+    }
 
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
 
     public String getFirstName() {
         return firstName;

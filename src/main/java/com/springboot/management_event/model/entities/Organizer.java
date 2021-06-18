@@ -10,7 +10,13 @@ public class Organizer extends AbstractEntity {
     private LocalDate birthDate;
     private String email;
     private String phone;
+
     @OneToOne
+    @JoinColumn(name="account_id")
+    private Account account;
+
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     public Organizer() {

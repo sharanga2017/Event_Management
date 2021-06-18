@@ -2,6 +2,7 @@ package com.springboot.management_event.model.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,15 +10,14 @@ import java.util.List;
 @Table(name = "speakers")
 public class Speaker extends AbstractEntity{
 
-
-
+    @OneToOne
+    @JoinColumn(name="account_id")
+    private Account account;
     private String firstName;
-
-
     private String lastName;
-
-    @OneToMany
-    private List<Event> event;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author",
+            orphanRemoval = true)
+    private List<Event> event = new ArrayList<>();
 
     private String email;
 

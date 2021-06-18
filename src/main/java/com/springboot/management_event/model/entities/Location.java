@@ -7,23 +7,14 @@ import java.util.List;
 @Table(name = "locations")
 public class Location extends AbstractEntity {
 
-
-
-
     private String street;
     private String city;
     private int codePostal;
     private String country;
     private boolean verified;
 
-
-
-
-
     public Location() {
     }
-
-
 
     public String getStreet() {
         return street;

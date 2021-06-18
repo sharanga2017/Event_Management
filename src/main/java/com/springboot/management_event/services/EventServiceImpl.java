@@ -4,10 +4,7 @@ package com.springboot.management_event.services;
 import com.springboot.management_event.model.dtos.*;
 import com.springboot.management_event.model.entities.*;
 import com.springboot.management_event.model.entities.Organizer;
-import com.springboot.management_event.repositories.EventRepository;
-import com.springboot.management_event.repositories.LocationRepository;
-import com.springboot.management_event.repositories.OrganizerRepository;
-import com.springboot.management_event.repositories.SpeakerRepository;
+import com.springboot.management_event.repositories.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,18 +16,24 @@ public class EventServiceImpl implements EventService {
     private final OrganizerRepository organizers;
     private final LocationRepository locations;
 
+    private final AccountRepository accounts;
+
     private final SpeakerRepository speakers;
 
     public EventServiceImpl(ModelMapper mapper,
                             EventRepository events,
                             OrganizerRepository organizers,
                             LocationRepository locations,
-                            SpeakerRepository speakers) {
+                            SpeakerRepository speakers,
+                            AccountRepository accounts
+                            ) {
         this.mapper = mapper;
         this.events = events;
         this.organizers = organizers;
         this.locations = locations;
         this.speakers = speakers;
+       this.accounts =accounts;
+
     }
 
     @Override
@@ -70,6 +73,9 @@ public class EventServiceImpl implements EventService {
 
         return null;
     }
+
+
+
 
 
 

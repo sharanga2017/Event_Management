@@ -6,30 +6,19 @@ import javax.persistence.*;
 @Table(name = "addresses")
 
 public class Address extends AbstractEntity{
-
-
-
-
     private String number;
     private String street;
     private int code;
     private String city;
     private String country;
-
     public Address() {
-
     }
-
-
-
     public String getNumber() {
         return number;
     }
-
     public void setNumber(String number) {
         this.number = number;
     }
-
     public String getStreet() {
         return street;
     }

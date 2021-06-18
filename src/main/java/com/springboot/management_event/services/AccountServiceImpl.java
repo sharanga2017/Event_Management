@@ -25,8 +25,11 @@ public class AccountServiceImpl implements AccountService {
 
     private final RoleRepository roles;
 
-    public AccountServiceImpl(PasswordEncoder encoder , TokenProvider provider,
-                              AccountRepository accounts, RoleRepository roles) {
+    public AccountServiceImpl(PasswordEncoder encoder ,
+                              TokenProvider provider,
+                              AccountRepository accounts,
+                              RoleRepository roles
+                             ) {
         this.encoder = encoder;
         this.provider = provider;
         this.accounts = accounts;
@@ -65,5 +68,16 @@ public class AccountServiceImpl implements AccountService {
         List<String> authorities = List.of(entity.getRole().getCode());
         // Return an ID token (oauth 2) with the subject and authorities:
         return provider.idToken(username, authorities);
+    }
+
+
+
+    public void addRoleByUserName(String username, String roledto){
+        Account account = accounts.findByUsernameAndEnabledTrue(username).get();
+        String myrole = "ROLE_" +roledto;
+        Role role= roles.findByCode(myrole).get();
+
+        account.setRole(role);
+        accounts.save(account);
     }
 }

@@ -9,4 +9,7 @@ public interface AccountService {
     void create(AccountCreate inputs);
 
     IdToken login(AccountLogin inputs);
+
+
+    void addRoleByUserName(String username, String roledto);
 }

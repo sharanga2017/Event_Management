@@ -67,11 +67,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Apply business requirements:
                 .and().authorizeRequests()
                 // Authorize any user to access these endpoints:
-                .antMatchers(HttpMethod.POST, "/accounts", "/accounts/login")
+                .antMatchers(HttpMethod.POST, "/accounts", "/tests/changerole", "/accounts/login")
                 .permitAll()
                 // Authorize anonymous only to access this endpoint:
                 .antMatchers(HttpMethod.GET, "/tests/anonymous-only")
                 .anonymous()
+
+                .antMatchers(HttpMethod.GET, "/tests/basic-only")
+                .hasRole("BASIC") // ROLE_BASIC
+                // Authorize admin role only to access this endpoint:
+
+                .antMatchers(HttpMethod.GET, "/tests/admin-only")
+                .hasRole("ADMIN") // ROLE_ADMIN
+
+                .antMatchers(HttpMethod.GET, "/tests/manager-only")
+                .hasRole("MANAGER") // ROLE_ADMIN
+
+
+
+
+
+
+
                 // Unauthorize any other endpoint (request):
                 .anyRequest().fullyAuthenticated()
                 // Resource server:
