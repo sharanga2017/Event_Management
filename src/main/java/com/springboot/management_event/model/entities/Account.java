@@ -1,10 +1,6 @@
 package com.springboot.management_event.model.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "accounts")
@@ -19,13 +15,16 @@ public class Account extends AbstractEntity {
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false,
+            foreignKey = @ForeignKey(name = "account_role"))
     @ManyToOne
     private Role role;
 
     public Account() {
         //
     }
+
+
 
     public String getUsername() {
         return username;

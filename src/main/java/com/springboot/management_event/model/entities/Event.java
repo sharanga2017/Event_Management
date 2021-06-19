@@ -13,25 +13,30 @@ import javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "events")
-public class Event extends AbstractEntity implements Serializable {
+public class Event extends AbstractEntity  {
 
     private String name;
     private Status status;
     @OneToOne
-    @JoinColumn(name = "organizer_id")
+    @JoinColumn(name = "organizer_id",
+            foreignKey = @ForeignKey(name = "event_organizer"))
     private Organizer organizer;
     private LocalDate StartDate;
     private LocalDate EndDate;
     private int maxSeats;
     private int remainingSeats;
     @OneToOne
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name="location_id",
+            foreignKey = @ForeignKey(name = "event_location"))
     private Location location;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name="event_attendee",
             joinColumns= @JoinColumn(name="event_id"),
-            inverseJoinColumns = @JoinColumn(name="attendee_id")
+            foreignKey = @ForeignKey(name = "attendee_event"),
+            inverseJoinColumns = @JoinColumn(name="attendee_id",
+                    foreignKey = @ForeignKey(name = "event_attendee"))
+
     )
     private Set<Attendee> attendees= new HashSet<>();
 
@@ -46,6 +51,19 @@ public class Event extends AbstractEntity implements Serializable {
         this.attendees.remove(attendee);
         attendee.getEvents().remove(this);
     }
+
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "speaker_id",
+            foreignKey = @ForeignKey(name = "event_speaker"))
+    private Speaker speaker;
+
+
+
+    public Event() {
+    }
+
 
     public String getName() {
         return name;
@@ -126,37 +144,6 @@ public class Event extends AbstractEntity implements Serializable {
     public void setSpeaker(Speaker speaker) {
         this.speaker = speaker;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "speaker_id")
-    private Speaker speaker;
-
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if(obj == null) {
-            return false;
-        }
-
-        if(this == obj)
-        {
-            return true;
-        }
-        if(getClass() != obj.getClass()){
-            return false;
-        }
-
-        return super.getId() != null && super.getId().
-                equals(((Event) obj).getId());
-    }
-    public Event() {
-    }
-
-
-
-
-
 }
 
 

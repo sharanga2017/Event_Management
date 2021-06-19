@@ -12,11 +12,13 @@ public class Organizer extends AbstractEntity {
     private String phone;
 
     @OneToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="account_id",
+            foreignKey = @ForeignKey(name = "organizer_account"))
     private Account account;
 
     @OneToOne
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id",
+            foreignKey = @ForeignKey(name = "organizer_address"))
     private Address address;
 
     public Organizer() {

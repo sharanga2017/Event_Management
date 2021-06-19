@@ -11,11 +11,12 @@ import java.util.List;
 public class Speaker extends AbstractEntity{
 
     @OneToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="account_id",
+            foreignKey = @ForeignKey(name = "speaker_account"))
     private Account account;
     private String firstName;
     private String lastName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "author",
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "speaker",
             orphanRemoval = true)
     private List<Event> event = new ArrayList<>();
 

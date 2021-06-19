@@ -42,7 +42,10 @@ public class TestController {
         return "we are manager and admin users!";
     }
 
-
+   @GetMapping("/admin-or-manager")
+   public String managerOrAdminOnly() {
+       return "we are manager or admin users!";
+   }
 
     @PostMapping("/changerole")
     public String addRole(@RequestBody AddRoleDTO dto){

@@ -16,10 +16,14 @@ public class Attendee extends AbstractEntity {
     private String email;
     private String companyName;
     @OneToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="account_id",
+            foreignKey = @ForeignKey(name = "attendee_account"))
     private Account account;
     @OneToOne
+    @JoinColumn(name="address_id",referencedColumnName="addressId",
+            foreignKey = @ForeignKey(name = "attendee_address"))
     private Address address;
+
     @ManyToMany(mappedBy = "attendees")
     private Set<Event> events = new HashSet<>();
     public Attendee() {

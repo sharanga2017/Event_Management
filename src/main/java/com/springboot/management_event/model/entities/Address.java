@@ -11,8 +11,12 @@ public class Address extends AbstractEntity{
     private int code;
     private String city;
     private String country;
+
+
     public Address() {
     }
+
+
     public String getNumber() {
         return number;
     }

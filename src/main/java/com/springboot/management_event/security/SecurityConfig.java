@@ -85,6 +85,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+                .antMatchers(HttpMethod.GET, "/tests/admin-or-manager")
+                .hasAnyRole("ADMIN", "MANAGER")
 
 
 
